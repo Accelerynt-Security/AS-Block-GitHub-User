@@ -64,6 +64,8 @@ To ensure the private key remains secure, this playbook utilizes Azure key vault
 A PowerShell script titled "**Encode-Private-Key.ps1**", located in the Encode-Private-Key folder of this repository,
 will allow you to easily select your private key file and encode its contents.
 
+![BlockGitHubUser_Encode_Private_Key_1](Images/BlockGitHubUser_Encode_Private_Key_1.png)
+
 #### Create an Azure Key Vault Secret:
 
 Navigate to the Azure Key Vaults page: https://portal.azure.com/#view/HubsExtension/BrowseResource/resourceType/Microsoft.KeyVault%2Fvaults
