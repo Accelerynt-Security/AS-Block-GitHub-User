@@ -13,10 +13,10 @@ This playbook is intended to be run from a Microsoft Sentinel Incident. It will 
 
 ![BlockGitHubUser_Demo_2](Images/BlockGitHubUser_Demo_2.png)
  
-                                                                                                                                
+                                                                                                                             
 #
 ### Requirements
-                                                                                                                                     
+                                                                                                                            
 The following items are required under the template settings during deployment: 
 
 * A [GitHub App](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#install-the-github-app) with permissions to read and write on Users in your GitHub Organization
@@ -26,9 +26,10 @@ The following items are required under the template settings during deployment:
 * Install [Visual Studio Code](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#configure-visual-studio-code) and configure it to deploy an Azure Function to your Azure tenant
 * An [Azure Function App](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#deploy-the-azure-function-app) that supports Node.js to deploy an Azure function to
 
+
 # 
 ### Setup
-                                                                                                                                     
+                                                                                                                             
 #### Install the GitHub App:
 
 A GitHub App with read and write permissions on Users is needed in order to perform the required 'Block User' action on your GitHub Organization's behalf. Additionally, read and write permissions on Members are also required, as Users that are also Members cannot be blocked until after their membership is revoked. Accelerynt has developed a GitHub App with the aforementioned access, which you can install in your GitHub Organization.
@@ -57,6 +58,7 @@ This GitHub App will need to authenticate as an installation using a private key
 
 This will generate a new private key and the file will be downloaded automatically. This file will be needed in the next step.
 
+
 #### Encode the Private Key:
 
 To ensure the private key remains secure, this playbook utilizes Azure key vault to access the private key, rather than storing it directly in the playbook. However, because the file contains multiple line breaks, the contents of the file containing your private key will need to be encoded before it can be successfully stored in an Azure key vault.
@@ -65,6 +67,7 @@ A PowerShell script titled "**Encode-Private-Key.ps1**", located in the Encode-P
 will allow you to easily select your private key file and encode its contents.
 
 ![BlockGitHubUser_Encode_Private_Key_1](Images/BlockGitHubUser_Encode_Private_Key_1.png)
+
 
 #### Create an Azure Key Vault Secret:
 
@@ -81,6 +84,7 @@ Choose a name for the secret, such as "**GitHub-App-Private-Key--Block-User**", 
 Once your secret has been added to the vault, navigate to the "**Access policies**" menu option on the Key Vault page menu. Leave this page open, as you will need to return to it once the playbook has been deployed. See [Granting Access to Azure Key Vault](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#granting-access-to-azure-key-vault).
 
 ![BlockGitHubUser_Key_Vault_Create_Secret_3](Images/BlockGitHubUser_Key_Vault_Create_Secret_3.png)
+
 
 #### Configure Visual Studio Code:
 
@@ -151,6 +155,7 @@ After installing the required packages, the Azure Function can be deployed.
 > **Note**
 > Simply recreating the file structure from this repository in Azure will not actually install the libraries required for the Azure Function; the function must be deployed from an IDE, so that the dependent library packages are recreated and properly installed. Any IDE can be used for this, but this documentation will outline the process using Visual Studio Code (VS Code).
 
+
 #### Deploy the Azure Function App:
 
 In order to deploy an Azure Function, there must be an existing Azure Function App supporting the language used in the Azure function. If there is an existing Function App that supports Node.js in your Azure tenant, you can skip the first part of this step. Otherwise, you need to create a new Function App in your Azure tenant before deploying your Function.
@@ -174,6 +179,7 @@ Follow the prompts to choose your subscription and the Function App to which you
 Once the deployment is complete, the Function can be accessed from your Azure tenant by the playbook. You can view your Function by navigating to https://portal.azure.com/#view/HubsExtension/BrowseResource/resourceType/Microsoft.Web%2Fsites/kind/functionapp and selecting the Function App your Function was deployed to.
 
 ![BlockGitHubUser_Deploy_Azure_Function_4](Images/BlockGitHubUser_Deploy_Azure_Function_4.png)
+
 
 #
 ### Deployment                                                                                                         
@@ -222,6 +228,7 @@ Click the one corresponding to the Logic App.
 
 ![BlockGitHubUser_Deploy_3](Images/BlockGitHubUser_Deploy_3.png)
 
+
 #
 ### Granting Access to Azure Key Vault
 
@@ -235,13 +242,14 @@ Select the "**Get**" checkbox in the "**Secret permissions**" section. Then clic
 
 ![BlockGitHubUser_Key_Vault_Access_2](Images/BlockGitHubUser_Key_Vault_Access_2.png)
 
-From the "**Principal**" page, paste "**AS-Block-GitHub-User**", or the alternative playbook name you used, into the search box and click the option that appears. Click "**Next**". 
+From the "**Principal**" page, paste "**AS-Block-GitHub-User**", or the alternative playbook name you used, into the search box and click the option that appears. Click "**Next**".
 
 ![BlockGitHubUser_Key_Vault_Access_3](Images/BlockGitHubUser_Key_Vault_Access_3.png)
 
 Click "**Next**" in the application section. Then from the "**Review + create**" page, click "**Create**".
 
 ![BlockGitHubUser_Key_Vault_Access_4](Images/BlockGitHubUser_Key_Vault_Access_4.png)
+
 
 #
 ### Microsoft Sentinel Contributor Role
@@ -265,3 +273,19 @@ Select the "**Managed identity**" option, then click "**Select Members**". Under
 Continue on to the "**Review + assign**" tab and click "**Review + assign**".
 
 ![BlockGitHubUser_Add_Contributor_Role_4](Images/BlockGitHubUser_Add_Contributor_Role_4.png)
+
+
+#
+### Updating Node.js Packages for Azure Functions
+
+As part of maintaining a robust and secure application, it's essential to regularly update the Node.js packages that your Azure Function relies on. There are several reasons for this:
+
+**Security Fixes**: Developers frequently release updates to their packages to address discovered vulnerabilities. Keeping your packages up-to-date ensures you benefit from these fixes and reduces your application's risk exposure.
+
+**Bug Fixes and Improved Functionality**: Updates often contain bug fixes or enhancements to functionality, stability, and performance. Regularly updating packages can provide your application with these benefits.
+
+**Compatibility**: If you're updating your Node.js runtime or other packages, you need to keep all packages updated to ensure compatibility and prevent breaking changes.
+
+As a general guideline, you should review and test for updates at least once per month. More frequent checks can be performed if your function has higher security requirements or is particularly sensitive to bugs in the underlying packages. Automated tools exist to help manage these updates.
+
+You can update your packages from your VS Code project's terminal by running the commands "**npm update date-fns**" and ""**npm update jsonwebtoken**", then redeploying the Function to Azure.
