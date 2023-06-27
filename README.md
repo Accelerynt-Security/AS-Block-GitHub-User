@@ -76,7 +76,7 @@ Navigate to an existing Key Vault or create a new one. From the Key Vault overvi
 
 ![BlockGitHubUser_Key_Vault_Create_Secret_1](Images/BlockGitHubUser_Key_Vault_Create_Secret_1.png)
 
-Choose a name for the secret, such as "**GitHub-App-Private-Key--Block-User**", and enter the App Registration Secret copied previously in the "**Value**" field. All other settings can be left as is. Click "**Create**". 
+Choose a name for the secret, such as "**GitHub-App-Private-Key--Block-User**", and enter the encoded GitHub private key value copied from the [previous step](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#encode-the-private-key-for-storage-compatibility-in-azure-key-vault) in the "**Value**" field. All other settings can be left as is. Click "**Create**". 
 
 ![BlockGitHubUser_Key_Vault_Create_Secret_2](Images/BlockGitHubUser_Key_Vault_Create_Secret_2.png)
 
