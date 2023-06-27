@@ -99,8 +99,8 @@ Once VS Code has been installed, open it, and navigate to the Extensions view by
 ![BlockGitHubUser_Configure_VSCode_1](Images/BlockGitHubUser_Configure_VSCode_1.png)
 
 In the Extensions view, search for the following extensions and install them:
-    - **Azure Account**: This extension provides a single Azure login and subscription filtering experience for all other Azure extensions. It makes Azure's Cloud Shell service available in VS Code's integrated terminal.
-    - **Azure Functions**: This extension helps in creating, testing, and deploying Azure Functions directly from VS Code. This includes the creation of new function apps within your Azure account.
+* **Azure Account**: This extension provides a single Azure login and subscription filtering experience for all other Azure extensions. It makes Azure's Cloud Shell service available in VS Code's integrated terminal.
+* **Azure Functions**: This extension helps in creating, testing, and deploying Azure Functions directly from VS Code. This includes the creation of new Function Apps within your Azure account.
 
 ![BlockGitHubUser_Configure_VSCode_2](Images/BlockGitHubUser_Configure_VSCode_2.png)
 
@@ -114,7 +114,7 @@ You will be prompted to sign in to your account via web browser. Follow the prom
 
 Once you have successfully authenticated, your Azure email will be displayed in the bottom left corner of the VS Code window.
 
-Next, you will need to create an Azure Function project using the code included in this GitHub repo. Create a folder on your computer for the Azure Function to be housed. Next, in VS Code, hover your mouse over the "**Workspace**" section in the Azure pane on the left. Click the "**Create Function**" icon. Select the "**CreateJWT**" folder you just created from the open dialogue window.
+Next, you will need to create an Azure Function project using the code included in this GitHub repo. Create a folder on your computer for the Azure Function to be housed and label it "**CreateJWT**". Next, in VS Code, hover your mouse over the "**Workspace**" section in the Azure pane on the left. Click the "**Create Function**" icon. Select the "**CreateJWT**" folder you just created from the open dialogue window.
 
 ![BlockGitHubUser_Configure_VSCode_5](Images/BlockGitHubUser_Configure_VSCode_5.png)
 
@@ -279,12 +279,12 @@ Continue on to the "**Review + assign**" tab and click "**Review + assign**".
 
 As part of maintaining a robust and secure application, it's essential to regularly update the Node.js packages that your Azure Function relies on. There are several reasons for this:
 
-**Security Fixes**: Developers frequently release updates to their packages to address discovered vulnerabilities. Keeping your packages up-to-date ensures you benefit from these fixes and reduces your application's risk exposure.
+* **Security Fixes**: Developers frequently release updates to their packages to address discovered vulnerabilities. Keeping your packages up-to-date ensures you benefit from these fixes and reduces your application's risk exposure.
 
-**Bug Fixes and Improved Functionality**: Updates often contain bug fixes or enhancements to functionality, stability, and performance. Regularly updating packages can provide your application with these benefits.
+* **Bug Fixes and Improved Functionality**: Updates often contain bug fixes or enhancements to functionality, stability, and performance. Regularly updating packages can provide your application with these benefits.
 
-**Compatibility**: If you're updating your Node.js runtime or other packages, you need to keep all packages updated to ensure compatibility and prevent breaking changes.
+* **Compatibility**: If you're updating your Node.js runtime or other packages, you need to keep all packages updated to ensure compatibility and prevent breaking changes.
 
 As a general guideline, you should review and test for updates at least once per month. More frequent checks can be performed if your function has higher security requirements or is particularly sensitive to bugs in the underlying packages. Automated tools exist to help manage these updates.
 
-You can update your packages from your VS Code project's terminal by running the commands "**npm update date-fns**" and "**npm update jsonwebtoken**", then redeploying the Function to Azure.
+You can update the dependent libraries for your Azure Function in VS Code by executing the commands "**npm update date-fns**" and "**npm update jsonwebtoken**" within your "**CreateJWT**" project directory in the integrated terminal. Redeploy the Function to Azure afterwards.
