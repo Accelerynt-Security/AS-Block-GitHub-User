@@ -21,7 +21,7 @@ The following items are required under the template settings during deployment:
 
 * A [GitHub App](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#install-the-github-app) with permissions to read and write on Users in your GitHub Organization
 * The [GitHub App Installation ID](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#install-the-github-app)
-* An [Encoded Private Key](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#encode-the-private-key) for your GitHub App
+* An [Encoded Private Key](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#encode-the-private-key-for-storage-compatibility-in-azure-key-vault) for your GitHub App
 * An [Azure Key Vault Secret](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#create-an-azure-key-vault-secret) containing your encoded private key
 * Install [Visual Studio Code](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#configure-visual-studio-code) and configure it to deploy an Azure Function to your Azure tenant
 * An [Azure Function App](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#deploy-the-azure-function-app) that supports Node.js to deploy an Azure function to
@@ -44,7 +44,7 @@ From there, click "**Install App**".
 
 Once the App has been installed, navigate to https://github.com/organizations/{YOUR_ORGANIZATION}/settings/apps/as-github-block-user and take note of the App ID in the "**General**" section, as it will be needed for deployment.
 
-The GitHub App installation ID will also be needed for deployment, and this is different than the App ID mentioned above. Once the app has been installed, navigate to the "**Install App**" tab on the left menu blade of the app settings. From there, you should see your Organization listed as installed. Click the gear icon, which will take you to the app installation settings page.
+The GitHub App installation ID will also be needed for deployment, and this is different than the App ID mentioned above. Once the App has been installed, navigate to the "**Install App**" tab on the left menu blade of the App settings. From there, you should see your Organization listed as installed. Click the gear icon, which will take you to the App installation settings page.
 
 ![BlockGitHubUser_Install_GitHub_App_2](Images/BlockGitHubUser_Install_GitHub_App_2.png)
 
@@ -52,19 +52,18 @@ Your App installation ID can be found in the URL of this page, as indicated.
 
 ![BlockGitHubUser_Install_GitHub_App_3](Images/BlockGitHubUser_Install_GitHub_App_3.png)
 
-This GitHub App will need to authenticate as an installation using a private key. Once the app has been installed, navigate to the "**General**" tab on the left menu blade of the app settings and scroll down to the "**Private keys**" section. Click "**Generate a private key**".
+This GitHub App will need to authenticate as an installation using a private key. Once the App has been installed, navigate to the "**General**" tab on the left menu blade of the App settings and scroll down to the "**Private keys**" section. Click "**Generate a private key**".
 
 ![BlockGitHubUser_Install_GitHub_App_4](Images/BlockGitHubUser_Install_GitHub_App_4.png)
 
 This will generate a new private key and the file will be downloaded automatically. This file will be needed in the next step.
 
 
-#### Encode the Private Key:
+#### Encode the Private Key for Storage Compatibility in Azure Key Vault:
 
-To ensure the private key remains secure, this playbook utilizes Azure key vault to access the private key, rather than storing it directly in the playbook. However, because the file contains multiple line breaks, the contents of the file containing your private key will need to be encoded before it can be successfully stored in an Azure key vault.
+To safeguard the GitHub private key, this playbook employs Azure Key Vault for its secure storage and access, preventing direct storage in the playbook itself. Azure Key Vault, a cloud service, is a secure repository for confidential data such as keys, passwords, and certificates. Storing the key directly in the script or application code can expose it, whereas Azure Key Vault mitigates this risk through centralized key management. The private key is stored as an Azure Key Vault Secret, as it's compatible with Logic App's current ability to only fetch Key Vault Secret values.
 
-A PowerShell script titled "**Encode-Private-Key.ps1**", located in the Encode-Private-Key folder of this repository,
-will allow you to easily select your private key file and encode its contents.
+Line breaks within private key files can disrupt their storage in a key vault or a similar service. To prevent this, the private key file needs to be encoded into a single line of text. Use the PowerShell script "**Encode-Private-Key.ps1**", found in the repository's Encode-Private-Key folder, to conveniently select and encode your private key file for Azure Key Vault Secret storage compatibility.
 
 ![BlockGitHubUser_Encode_Private_Key_1](Images/BlockGitHubUser_Encode_Private_Key_1.png)
 
@@ -115,7 +114,7 @@ You will be prompted to sign in to your account via web browser. Follow the prom
 
 Once you have successfully authenticated, your Azure email will be displayed in the bottom left corner of the VS Code window.
 
-Next, you will need to create an Azure Function project using the code included in this GitHub repo. Create a folder on your computer for the Aure Function to be housed. Next, in VS Code, hover your mouse over the "**Workspace**" section in the Azure pane on the left. Click the "**Create Function**" icon. Select the "**CreateJWT**" folder you just created from the open dialogue window.
+Next, you will need to create an Azure Function project using the code included in this GitHub repo. Create a folder on your computer for the Azure Function to be housed. Next, in VS Code, hover your mouse over the "**Workspace**" section in the Azure pane on the left. Click the "**Create Function**" icon. Select the "**CreateJWT**" folder you just created from the open dialogue window.
 
 ![BlockGitHubUser_Configure_VSCode_5](Images/BlockGitHubUser_Configure_VSCode_5.png)
 
@@ -266,7 +265,7 @@ Select the "**Microsoft Sentinel Contributor**" role, then click "**Next**".
 
 ![BlockGitHubUser_Add_Contributor_Role_2](Images/BlockGitHubUser_Add_Contributor_Role_2.png)
 
-Select the "**Managed identity**" option, then click "**Select Members**". Under the subscription the logic app is located, set the value of "**Managed identity**" to "**Logic app**". Next, enter "**AS-Block-GitHub-User**", or the alternative playbook name used during deployment, in the field labeled "**Select**". Select the playbook, then click "**Select**".
+Select the "**Managed identity**" option, then click "**Select Members**". Under the subscription the Logic App is located, set the value of "**Managed identity**" to "**Logic app**". Next, enter "**AS-Block-GitHub-User**", or the alternative playbook name used during deployment, in the field labeled "**Select**". Select the playbook, then click "**Select**".
 
 ![BlockGitHubUser_Add_Contributor_Role_3](Images/BlockGitHubUser_Add_Contributor_Role_3.png)
 
@@ -288,4 +287,4 @@ As part of maintaining a robust and secure application, it's essential to regula
 
 As a general guideline, you should review and test for updates at least once per month. More frequent checks can be performed if your function has higher security requirements or is particularly sensitive to bugs in the underlying packages. Automated tools exist to help manage these updates.
 
-You can update your packages from your VS Code project's terminal by running the commands "**npm update date-fns**" and ""**npm update jsonwebtoken**", then redeploying the Function to Azure.
+You can update your packages from your VS Code project's terminal by running the commands "**npm update date-fns**" and "**npm update jsonwebtoken**", then redeploying the Function to Azure.
