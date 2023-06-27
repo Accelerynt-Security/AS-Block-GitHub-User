@@ -155,7 +155,7 @@
                                     "inputs": {
                                         "body": {
                                             "incidentArmId": "@triggerBody()?['object']?['id']",
-                                            "message": "[concat('<p><strong>Removed and Blocked GitHub User Accounts from ', parameters(GitHubOrganizationName'), ':</strong><br>\n@{variables(''User Accounts Blocked'')}</p>')]"
+                                            "message": "[concat('<p><strong>Removed and Blocked GitHub User Accounts from ', parameters('GitHubOrganizationName'), ':</strong><br>\n@{variables(''User Accounts Blocked'')}</p>')]"
                                         },
                                         "host": {
                                             "connection": {
@@ -179,7 +179,7 @@
                                             "private_key": "@decodeBase64(body('Get_secret')?['value'])"
                                         },
                                         "function": {
-                                            "id": "[concat(parameters('FunctionAppName'), '/functions/CreateJWT')]"
+                                            "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', resourceGroup().name ,'/providers/Microsoft.Web/sites/', parameters('FunctionAppName'), '/functions/CreateJWT')]"
                                         }
                                     }
                                 },
@@ -243,7 +243,7 @@
                                                     "Authorization": "Bearer @{body('Parse_JSON')?['token']}"
                                                 },
                                                 "method": "PUT",
-                                                "uri": "[concat('https://api.github.com/orgs/', parameters('GitHubOrganizationName), '/blocks/@{items(''For_each_-_Account_entity'')?[''Name'']}')]"
+                                                "uri": "[concat('https://api.github.com/orgs/', parameters('GitHubOrganizationName'), '/blocks/@{items(''For_each_-_Account_entity'')?[''Name'']}')]"
                                             }
                                         },
                                         "HTTP_-_Remove_GitHub_user_as_a_member_from_organization": {
@@ -255,7 +255,7 @@
                                                     "Authorization": "Bearer @{body('Parse_JSON')?['token']}"
                                                 },
                                                 "method": "DELETE",
-                                                "uri": "[concat('https://api.github.com/orgs/', parameters('GitHubOrganizationName),'/members/@{items(''For_each_-_Account_entity'')?[''Name'']}')]"
+                                                "uri": "[concat('https://api.github.com/orgs/', parameters('GitHubOrganizationName'),'/members/@{items(''For_each_-_Account_entity'')?[''Name'']}')]"
                                             }
                                         }
                                     },
@@ -272,7 +272,7 @@
                                     "inputs": {
                                         "host": {
                                             "connection": {
-                                                "name": "@parameters('$connections')['keyvault_5']['connectionId']"
+                                                "name": "@parameters('$connections')['keyvault']['connectionId']"
                                             }
                                         },
                                         "method": "get",
