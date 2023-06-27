@@ -231,7 +231,7 @@ Click the one corresponding to the Logic App.
 #
 ### Granting Access to Azure Key Vault
 
-Before the Logic App can run successfully, the Key Vault connection created during deployment must be granted access to the Key Vault storing your App Registration Secret.
+Before the Logic App can run successfully, the Key Vault connection created during deployment must be granted access to the Key Vault Secret storing your GitHub private key.
 
 From the Key Vault "**Access policies**" page, click "**Create**".
 
