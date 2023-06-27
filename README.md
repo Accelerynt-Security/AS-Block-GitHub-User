@@ -72,15 +72,15 @@ Navigate to the Azure Key Vaults page: https://portal.azure.com/#view/HubsExtens
 
 Navigate to an existing Key Vault or create a new one. From the Key Vault overview page, click the "**Secrets**" menu option, found under the "**Settings**" section. Click "**Generate/Import**".
 
-![BlockGitHubUser_Key_Vault_1](Images/BlockGitHubUser_Key_Vault_1.png)
+![BlockGitHubUser_Key_Vault_Create_Secret_1](Images/BlockGitHubUser_Key_Vault_Create_Secret_1.png)
 
 Choose a name for the secret, such as "**GitHub-App-Private-Key--Block-User**", and enter the App Registration Secret copied previously in the "**Value**" field. All other settings can be left as is. Click "**Create**". 
 
-![BlockGitHubUser_Key_Vault_2](Images/BlockGitHubUser_Key_Vault_2.png)
+![BlockGitHubUser_Key_Vault_Create_Secret_2](Images/BlockGitHubUser_Key_Vault_Create_Secret_2.png)
 
 Once your secret has been added to the vault, navigate to the "**Access policies**" menu option on the Key Vault page menu. Leave this page open, as you will need to return to it once the playbook has been deployed. See [Granting Access to Azure Key Vault](https://github.com/Accelerynt-Security/AS-Block-GitHub-User#granting-access-to-azure-key-vault).
 
-![BlockGitHubUser_Key_Vault_3](Images/BlockGitHubUser_Key_Vault_3.png)
+![BlockGitHubUser_Key_Vault_Create_Secret_3](Images/BlockGitHubUser_Key_Vault_Create_Secret_3.png)
 
 #### Configure Visual Studio Code:
 
