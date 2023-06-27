@@ -229,21 +229,19 @@ Before the Logic App can run successfully, the Key Vault connection created duri
 
 From the Key Vault "**Access policies**" page, click "**Create**".
 
-![BlockGitHubUser_Access_1](Images/BlockGitHubUser_Access_1.png)
+![BlockGitHubUser_Key_Vault_Access_1](Images/BlockGitHubUser_Key_Vault_Access_1.png)
 
 Select the "**Get**" checkbox in the "**Secret permissions**" section. Then click "**Next**".
 
-![BlockGitHubUser_Access_2](Images/BlockGitHubUser_Access_2.png)
+![BlockGitHubUser_Key_Vault_Access_2](Images/BlockGitHubUser_Key_Vault_Access_2.png)
 
 From the "**Principal**" page, paste "**AS-Block-GitHub-User**", or the alternative playbook name you used, into the search box and click the option that appears. Click "**Next**". 
 
-* Note that if the same name is used for the app registration and playbook, you will see two options here, which can be hard to differentiate. In this case, you would want to select the option whose ID does **not** match the app registration (client) ID.
-
-![BlockGitHubUser_Access_3](Images/BlockGitHubUser_Access_3.png)
+![BlockGitHubUser_Key_Vault_Access_3](Images/BlockGitHubUser_Key_Vault_Access_3.png)
 
 Click "**Next**" in the application section. Then from the "**Review + create**" page, click "**Create**".
 
-![BlockGitHubUser_Access_4](Images/BlockGitHubUser_Access_4.png)
+![BlockGitHubUser_Key_Vault_Access_4](Images/BlockGitHubUser_Key_Vault_Access_4.png)
 
 #
 ### Microsoft Sentinel Contributor Role
