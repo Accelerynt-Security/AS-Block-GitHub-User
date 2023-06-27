@@ -41,7 +41,7 @@ From there, click "**Install App**".
 
 ![BlockGitHubUser_Install_GitHub_App_1](Images/BlockGitHubUser_Install_GitHub_App_1.png)
 
-Once the App has been installed, navigate to https://github.com/organizations/{YOUR ORGANIZATION}/settings/apps/as-github-block-user and take note of the App ID in the "**General**" section, as it will be needed for deployment.
+Once the App has been installed, navigate to https://github.com/organizations/{YOUR_ORGANIZATION}/settings/apps/as-github-block-user and take note of the App ID in the "**General**" section, as it will be needed for deployment.
 
 The GitHub App installation ID will also be needed for deployment, and this is different than the App ID mentioned above. Once the app has been installed, navigate to the "**Install App**" tab on the left menu blade of the app settings. From there, you should see your Organization listed as installed. Click the gear icon, which will take you to the app installation settings page.
 
@@ -61,7 +61,8 @@ This will generate a new private key and the file will be downloaded automatical
 
 To ensure the private key remains secure, this playbook utilizes Azure key vault to access the private key, rather than storing it directly in the playbook. However, because the file contains multiple line breaks, the contents of the file containing your private key will need to be encoded before it can be successfully stored in an Azure key vault.
 
-A PowerShell script titled "**Encode-Private-Key.ps1**" has been added to this repository to easily allow you to select your private key file and encode its contents.
+A PowerShell script titled "**Encode-Private-Key.ps1**", located in the Encode-Private-Key folder of this repository,
+will allow you to easily select your private key file and encode its contents.
 
 #### Create an Azure Key Vault Secret:
 
@@ -127,7 +128,7 @@ Select "**Function**" for the Authorization level, then after selecting the wind
 >**Note**
 > If you decide to use a different name for the function, you will need to do a -Find + Replace All- for "**CreateJWT**" in the azuredeploy.json file before deployment.
 
-Replace the contents of "**index.js**" in VS Code with the contents of "**CreateJWT.js**" located in this [GitHub repository](https://github.com/Accelerynt-Security/AS-Block-GitHub-User/CreateJWT-Function/CreateJWT.js)
+Replace the contents of "**index.js**" in VS Code with the contents of "**CreateJWT.js**" located in the CreateJWT-Function folder of this repository.
 
 ![BlockGitHubUser_Configure_VSCode_9](Images/BlockGitHubUser_Configure_VSCode_9.png)
 
